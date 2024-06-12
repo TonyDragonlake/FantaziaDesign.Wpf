@@ -1,0 +1,96 @@
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:Core="clr-namespace:FantaziaDesign.Wpf.Core"
+	xmlns:DControls="clr-namespace:FantaziaDesign.Wpf.Controls"
+	xmlns:DMedia="clr-namespace:FantaziaDesign.Wpf.Media">
+	<Style TargetType="{x:Type DControls:SelectableItem}">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type DControls:SelectableItem}">
+					<Border
+						Background="{TemplateBinding Background}"
+						BorderBrush="{TemplateBinding BorderBrush}"
+						BorderThickness="{TemplateBinding BorderThickness}" />
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style TargetType="{x:Type DControls:AnchorItem}">
+		<Setter Property="Width" Value="16" />
+		<Setter Property="Height" Value="16" />
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="BorderBrush" Value="{DynamicResource DBrush.Content.Fill.Accent.Primary.Normal}" />
+		<Setter Property="BorderThickness" Value="2" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type DControls:AnchorItem}">
+					<Border
+						Background="{TemplateBinding Background}"
+						BorderBrush="{TemplateBinding BorderBrush}"
+						BorderThickness="{TemplateBinding BorderThickness}"
+						CornerRadius="8" />
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsSelected" Value="True">
+							<Setter Property="Background" Value="{DynamicResource DBrush.Content.Fill.Accent.Primary.Normal}" />
+						</Trigger>
+						<Trigger Property="IsSelectable" Value="False">
+							<Setter Property="IsEnabled" Value="False" />
+						</Trigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter Property="BorderBrush" Value="{DynamicResource DBrush.Container.Stroke.Disabled}" />
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+
+	<Style TargetType="{x:Type DControls:SelectableItemsControl}">
+		<Setter Property="Background" Value="{DynamicResource DBrush.Container.Fill.Neutral.Primary.Normal}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}" />
+		<Setter Property="BorderThickness" Value="0" />
+		<Setter Property="Foreground" Value="{DynamicResource DBrush.Content.Fill.Neutral.Primary.Normal}" />
+		<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+		<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+		<Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+		<Setter Property="ScrollViewer.PanningMode" Value="Both" />
+		<Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+		<Setter Property="VerticalContentAlignment" Value="Center" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type DControls:SelectableItemsControl}">
+					<Border
+						x:Name="Bd"
+						Padding="0"
+						Background="{TemplateBinding Background}"
+						BorderBrush="{TemplateBinding BorderBrush}"
+						BorderThickness="{TemplateBinding BorderThickness}"
+						ClipToBounds="True"
+						CornerRadius="{Binding (Core:Attachable.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
+						SnapsToDevicePixels="true">
+						<DControls:RectangleClipper CornerRadius="{Binding (Core:Attachable.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
+							<ScrollViewer Padding="{TemplateBinding Padding}" Focusable="false">
+								<ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+							</ScrollViewer>
+						</DControls:RectangleClipper>
+					</Border>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsEnabled" Value="false">
+							<Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource DBrush.Container.Stroke.Disabled}" />
+						</Trigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsGrouping" Value="true" />
+								<Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="false" />
+							</MultiTrigger.Conditions>
+							<Setter Property="ScrollViewer.CanContentScroll" Value="false" />
+						</MultiTrigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+</ResourceDictionary>
